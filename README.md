@@ -1,4 +1,4 @@
-# HanaBudget - "OneBudget" 
+ # 💸📈 HanaBudget - "OneBudget" 💸📈
 
 <a href="https://github.com/ChicoQuemador1/HanaBudget/stargazers"><img src="https://img.shields.io/github/stars/ChicoQuemador1/HanaBudget?color=yellow" alt="Stars Badge"/></a> <a href="https://github.com/ChicoQuemador1/HanaBudget/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/ChicoQuemador1/HanaBudget"></a> <a href="https://github.com/ChicoQuemador1/HanaBudget/pulls"><img src="https://img.shields.io/github/issues-pr/ChicoQuemador1/HanaBudget?color=blue" alt="Pull Requests Badge"/></a> <a href="https://github.com/ChicoQuemador1/HanaBudget/pulls?q=is%3Apr+is%3Aclosed"><img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed-raw/ChicoQuemador1/HanaBudget"></a> <a href="https://github.com/ChicoQuemador1/HanaBudget/issues"><img src="https://img.shields.io/github/issues/ChicoQuemador1/HanaBudget?color=important" alt="Issues	Badge"/></a> <a href="https://github.com/ChicoQuemador1/HanaBudget"><img src="https://img.shields.io/github/repo-size/ChicoQuemador1/HanaBudget?color=ff69b4" alt="Repo Size Badge"/></a>
 
@@ -8,14 +8,14 @@ The friendly and simple expense tracker app! Built with Flutter & Atlas MongoDB 
 
 ***
 
-## Meet the HanaBudget Crew 🌟
+## 🌟 Meet the HanaBudget Crew 🌟
 
 - [Alexis Cruz-Aboytes](https://github.com/ChicoQuemador1)
 - [Mark Denina](https://github.com/mdenina1)
 
 
 
-## Licensing Information 🔒
+## 🔒 Licensing Information 🔒
 
 This project is licensed under the [MIT License](LICENSE). But please give us credit if you use our work. 😄
 
