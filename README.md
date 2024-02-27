@@ -8,18 +8,18 @@ The friendly and simple expense tracker app! Built with Flutter & Atlas MongoDB 
 
 ***
 
-## 🌟 Meet the HanaBudget Crew 🌟
+## 🌟 The HanaBudget Crew 
 
 - [Alexis Cruz-Aboytes](https://github.com/ChicoQuemador1)
 - [Mark Denina](https://github.com/mdenina1)
 
 
 
-## 🔒 Licensing Information 🔒
+## 🔒 Licensing
 
 This project is licensed under the [MIT License](LICENSE). But please give us credit if you use our work. 😄
 
 ---
 
-*Stay tuned as we continue to enhance HanaBudget with more updates and features!* 💸 📈
+*Stay tuned as we continue to enhance HanaBudget with more updates !* 💸 📈
 
