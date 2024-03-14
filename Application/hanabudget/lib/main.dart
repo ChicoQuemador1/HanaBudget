@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
       ),
       home: HomePage(),
       routes: {
-        '/page1': (context) => Page1(),
-        '/page2': (context) => Page2(),
-        '/page3': (context) => Page3(),
-        '/page4': (context) => Page4(),
+        '/page1': (context) => ViewExpenses(),
+        '/page2': (context) => ViewBudgets(),
+        '/page3': (context) => ViewGraphical(),
+        '/page4': (context) => SignOutButton(),
       },
     );
   }
@@ -28,15 +28,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Home'),
       ),
       body: GridView.count(
         crossAxisCount: 2,
         children: <Widget>[
-          _buildGridItem(context, 'Page 1', '/page1'),
-          _buildGridItem(context, 'Page 2', '/page2'),
-          _buildGridItem(context, 'Page 3', '/page3'),
-          _buildGridItem(context, 'Page 4', '/page4'),
+          _buildGridItem(context, 'View Expenses', '/page1'),
+          _buildGridItem(context, 'View Budgets', '/page2'),
+          _buildGridItem(context, 'Graphical View', '/page3'),
+          _buildGridItem(context, 'Sign Out', '/page4'),
         ],
       ),
     );
@@ -59,57 +59,57 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class Page1 extends StatelessWidget {
+class ViewExpenses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page 1'),
+        title: Text('Expenses'),
       ),
       body: Center(
-        child: Text('This is Page 1'),
+        child: Text('View Expenses'),
       ),
     );
   }
 }
 
-class Page2 extends StatelessWidget {
+class ViewBudgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page 2'),
+        title: Text('Budgets'),
       ),
       body: Center(
-        child: Text('This is Page 2'),
+        child: Text('View Budgets'),
       ),
     );
   }
 }
 
-class Page3 extends StatelessWidget {
+class ViewGraphical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page 3'),
+        title: Text('Graphical Graphs'),
       ),
       body: Center(
-        child: Text('This is Page 3'),
+        child: Text('Graphical View'),
       ),
     );
   }
 }
 
-class Page4 extends StatelessWidget {
+class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page 4'),
+        title: Text('Sign Out'),
       ),
       body: Center(
-        child: Text('This is Page 4'),
+        child: Text('Sign Out'),
       ),
     );
   }
