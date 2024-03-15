@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
       body: GridView.count(
         crossAxisCount: 2,
         children: <Widget>[
-          _buildGridItem(context, 'View Expenses', '/page1'),
+          _buildGridItem(context, 'View Expensess', '/page1'),
           _buildGridItem(context, 'View Budgets', '/page2'),
           _buildGridItem(context, 'Graphical View', '/page3'),
           _buildGridItem(context, 'Sign Out', '/page4'),
