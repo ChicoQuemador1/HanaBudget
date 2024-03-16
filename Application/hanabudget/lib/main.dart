@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'screens/login_page.dart';
 import 'screens/home_page.dart';
-import 'screens/signup_page.dart';
+import 'screens/sign_up_page.dart';
 import 'models/user.dart';
 import 'screens/forgot_page.dart';
 
@@ -35,10 +35,6 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
         '/forgot': (context) => ForgotPage(),
-        '/page1': (context) => ViewExpenses(),
-        '/page2': (context) => ViewBudgets(),
-        '/page3': (context) => ViewGraphical(),
-        '/page4': (context) => SignOutButton(),
       },
     );
   }

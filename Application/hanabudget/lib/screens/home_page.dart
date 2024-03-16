@@ -1,92 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-      ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: <Widget>[
-          _buildGridItem(context, 'View Expenses', '/page1'),
-          _buildGridItem(context, 'View Budgets', '/page2'),
-          _buildGridItem(context, 'Graphical View', '/page3'),
-          _buildGridItem(context, 'Sign Out', '/page4'),
-        ],
-      ),
-    );
-  }
+    var size = MediaQuery.of(context).size; // Get the screen size
 
-  Widget _buildGridItem(BuildContext context, String title, String route) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, route);
-      },
-      child: Card(
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 20.0),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Column(
+        children: [
+          ClipPath(
+            clipper: OvalBottomBorderClipper(),
+            child: Container(
+              width: size.width,
+              height: size.height * 0.15, // Or any other fixed height as needed
+              color: Color(0xFF1ED891),
+              // Include here any widgets you would want at the top part, like a Row for a title or icons
+            ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ViewExpenses extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Expenses'),
-      ),
-      body: Center(
-        child: Text('View Expenses'),
-      ),
-    );
-  }
-}
-
-class ViewBudgets extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Budgets'),
-      ),
-      body: Center(
-        child: Text('View Budgets'),
-      ),
-    );
-  }
-}
-
-class ViewGraphical extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Graphical Graphs'),
-      ),
-      body: Center(
-        child: Text('Graphical View'),
-      ),
-    );
-  }
-}
-
-class SignOutButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign Out'),
-      ),
-      body: Center(
-        child: Text('Sign Out'),
+          // The rest of your page content goes here
+          Expanded(
+            child: Container(
+              // Your main page content starts here, after the custom app bar
+              child: Center(
+                child: Text("Content goes here"),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
