@@ -5,35 +5,55 @@ import 'package:hanabudget/components/myButton.dart';
 import 'package:hanabudget/models/user.dart';
 import 'package:hive/hive.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  SignUpPage({super.key});
+
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
+  final securityAnswerController = TextEditingController();
+  String? selectedSecurityQuestion;
 
-  SignUpPage({super.key});
+  final List<String> securityQuestions = [
+    'What is your mother’s maiden name?',
+    'What was your first pet’s name?',
+    'What was the model of your first car?',
+    'In what town was your first job?',
+    'What is the name of the school you attended for sixth grade?',
+  ];
 
   void signUp(BuildContext context) async {
-    print("signUp method called"); // Debug print
+    if (usernameController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        nameController.text.isEmpty ||
+        securityAnswerController.text.isEmpty ||
+        selectedSecurityQuestion == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
 
     var box = Hive.box<User>('userBox');
     var user = User(
       username: usernameController.text,
       firstName: nameController.text,
       password: passwordController.text,
+      securityQuestion: selectedSecurityQuestion!,
+      securityAnswer: securityAnswerController.text,
     );
-
-    print('User data: ${user.username}, ${user.firstName}'); // Debug print
 
     await box.put(user.username, user);
 
     var savedUser = box.get(user.username);
-    print(
-        'Saved user: ${savedUser?.username}, ${savedUser?.firstName}'); // Debug print
-
     if (savedUser != null) {
       Navigator.pushReplacementNamed(context, '/home');
     } else {
-      print('Failed to save user');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to save user')),
       );
@@ -54,10 +74,11 @@ class SignUpPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/logo.png',
-                  width: 300,
-                  height: 300,
+                  'assets/images/tinylogo.png',
+                  width: 100,
+                  height: 100,
                 ),
+                SizedBox(height: 50),
                 MyTextField(
                   controller: usernameController,
                   hintText: 'Create Username',
@@ -74,6 +95,33 @@ class SignUpPage extends StatelessWidget {
                   controller: passwordController,
                   hintText: 'Create Password',
                   obscureText: true,
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    value: selectedSecurityQuestion,
+                    hint: Text("Select a Security Question"),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedSecurityQuestion = newValue;
+                      });
+                    },
+                    items: securityQuestions
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                SizedBox(height: 10),
+                MyTextField(
+                  controller: securityAnswerController,
+                  hintText: 'Security Answer',
+                  obscureText: false,
                 ),
                 SizedBox(height: 15),
                 MyButtonSignUp(

@@ -12,6 +12,13 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   void signUserIn(BuildContext context) async {
+    if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Incorrect username or password')),
+      );
+      return;
+    }
+
     var box = Hive.box<User>('userBox');
     var user = box.get(usernameController.text);
 
@@ -27,6 +34,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
@@ -58,7 +68,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // TODO: Implement forgot password functionality
+                          Navigator.pushNamed(context, '/forgot');
                         },
                         child: Text(
                           'Forgot Password?',
@@ -68,11 +78,11 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 20),
                 MyButton(
                   onTap: () => signUserIn(context),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Text("Don't have an account?"),
                 SizedBox(height: 10),
                 MyButtonSignUp(

@@ -4,6 +4,7 @@ import 'screens/loginPage.dart';
 import 'screens/homePage.dart';
 import 'screens/signupPage.dart';
 import 'models/user.dart';
+import 'screens/forgotPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
+        '/forgot': (context) => ForgotPage(),
         '/page1': (context) => ViewExpenses(),
         '/page2': (context) => ViewBudgets(),
         '/page3': (context) => ViewGraphical(),
