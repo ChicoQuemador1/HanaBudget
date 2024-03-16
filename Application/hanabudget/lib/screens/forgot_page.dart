@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hanabudget/components/myTextField.dart';
-import 'package:hanabudget/components/myButtonForgot.dart';
+import 'package:hanabudget/components/my_text_field.dart';
+import 'package:hanabudget/components/my_button_forgot.dart';
 import 'package:hanabudget/models/user.dart';
 import 'package:hive/hive.dart';
 

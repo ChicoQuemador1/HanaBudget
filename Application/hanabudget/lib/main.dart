@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'screens/loginPage.dart';
-import 'screens/homePage.dart';
-import 'screens/signupPage.dart';
+import 'screens/login_page.dart';
+import 'screens/home_page.dart';
+import 'screens/signup_page.dart';
 import 'models/user.dart';
-import 'screens/forgotPage.dart';
+import 'screens/forgot_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

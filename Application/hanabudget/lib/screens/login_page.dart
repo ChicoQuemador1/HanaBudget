@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hanabudget/components/myTextField.dart';
-import 'package:hanabudget/components/myButton.dart';
-import 'package:hanabudget/components/myButtonSignUp.dart';
+import 'package:hanabudget/components/my_text_field.dart';
+import 'package:hanabudget/components/my_button.dart';
+import 'package:hanabudget/components/my_button_sign_up.dart';
 import 'package:hanabudget/models/user.dart';
 import 'package:hive/hive.dart';
 

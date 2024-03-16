@@ -1,5 +1,5 @@
 import 'package:hanabudget/datetime/dateTimeHelper.dart';
-import 'package:hanabudget/models/expenseItem.dart';
+import 'package:hanabudget/models/expense_item.dart';
 
 class ExpenseData {
   // list all Expenses
