@@ -1,115 +1,43 @@
 import 'package:flutter/material.dart';
-import 'pages/loginPage.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'screens/loginPage.dart';
+import 'screens/homePage.dart';
+import 'screens/signupPage.dart';
+import 'models/user.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserAdapter());
+  await Hive.openBox<User>('userBox');
+
   runApp(MyApp());
+}
+
+void printSavedCredentials() {
+  var box = Hive.box<User>('userBox');
+  box.values.forEach((user) {
+    print(
+        'User: ${user.username}, First Name: ${user.firstName}, Password: ${user.password}');
+  });
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Navigation Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'HanaBudget',
+      theme: ThemeData(),
       home: LoginPage(),
       routes: {
+        '/home': (context) => HomePage(),
+        '/login': (context) => LoginPage(),
+        '/signup': (context) => SignUpPage(),
         '/page1': (context) => ViewExpenses(),
         '/page2': (context) => ViewBudgets(),
         '/page3': (context) => ViewGraphical(),
         '/page4': (context) => SignOutButton(),
       },
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: <Widget>[
-          _buildGridItem(context, 'View Expensess', '/page1'),
-          _buildGridItem(context, 'View Budgets', '/page2'),
-          _buildGridItem(context, 'Graphical View', '/page3'),
-          _buildGridItem(context, 'Sign Out', '/page4'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGridItem(BuildContext context, String title, String route) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, route);
-      },
-      child: Card(
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 20.0),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ViewExpenses extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Expenses'),
-      ),
-      body: Center(
-        child: Text('View Expenses'),
-      ),
-    );
-  }
-}
-
-class ViewBudgets extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Budgets'),
-      ),
-      body: Center(
-        child: Text('View Budgets'),
-      ),
-    );
-  }
-}
-
-class ViewGraphical extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Graphical Graphs'),
-      ),
-      body: Center(
-        child: Text('Graphical View'),
-      ),
-    );
-  }
-}
-
-class SignOutButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign Out'),
-      ),
-      body: Center(
-        child: Text('Sign Out'),
-      ),
     );
   }
 }

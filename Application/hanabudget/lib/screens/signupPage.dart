@@ -1,25 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:hanabudget/components/myTextField.dart';
-import 'package:hanabudget/components/myButton.dart';
 import 'package:hanabudget/components/myButtonSignUp.dart';
+import 'package:hanabudget/components/myButton.dart';
 import 'package:hanabudget/models/user.dart';
 import 'package:hive/hive.dart';
 
-class LoginPage extends StatelessWidget {
+class SignUpPage extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
 
-  LoginPage({super.key});
+  SignUpPage({super.key});
 
-  void signUserIn(BuildContext context) async {
+  void signUp(BuildContext context) async {
+    print("signUp method called"); // Debug print
+
     var box = Hive.box<User>('userBox');
-    var user = box.get(usernameController.text);
+    var user = User(
+      username: usernameController.text,
+      firstName: nameController.text,
+      password: passwordController.text,
+    );
 
-    if (user != null && user.password == passwordController.text) {
+    print('User data: ${user.username}, ${user.firstName}'); // Debug print
+
+    await box.put(user.username, user);
+
+    var savedUser = box.get(user.username);
+    print(
+        'Saved user: ${savedUser?.username}, ${savedUser?.firstName}'); // Debug print
+
+    if (savedUser != null) {
       Navigator.pushReplacementNamed(context, '/home');
     } else {
+      print('Failed to save user');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Incorrect username or password')),
+        SnackBar(content: Text('Failed to save user')),
       );
     }
   }
@@ -34,50 +50,38 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 10),
                 Image.asset(
                   'assets/images/logo.png',
-                  width: 400,
-                  height: 400,
+                  width: 300,
+                  height: 300,
                 ),
                 MyTextField(
                   controller: usernameController,
-                  hintText: 'Username',
+                  hintText: 'Create Username',
+                  obscureText: false,
+                ),
+                SizedBox(height: 10),
+                MyTextField(
+                  controller: nameController,
+                  hintText: 'First Name',
                   obscureText: false,
                 ),
                 SizedBox(height: 10),
                 MyTextField(
                   controller: passwordController,
-                  hintText: 'Password',
+                  hintText: 'Create Password',
                   obscureText: true,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          // TODO: Implement forgot password functionality
-                        },
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.grey[600]),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 25),
-                MyButton(
-                  onTap: () => signUserIn(context),
+                SizedBox(height: 15),
+                MyButtonSignUp(
+                  onTap: () => signUp(context),
                 ),
                 SizedBox(height: 20),
-                Text("Don't have an account?"),
+                Text("Already have an account?"),
                 SizedBox(height: 10),
-                MyButtonSignUp(
+                MyButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/signup');
+                    Navigator.pushNamed(context, '/login');
                   },
                 ),
               ],
