@@ -31,7 +31,7 @@ class _AddExpenseState extends State<AddExpense> {
   @override
   void initState() {
     super.initState();
-    dateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
+    dateController.text = DateFormat('MM/dd/yyyy').format(DateTime.now());
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -44,7 +44,7 @@ class _AddExpenseState extends State<AddExpense> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        dateController.text = DateFormat('dd/MM/yyyy').format(picked);
+        dateController.text = DateFormat('MM/dd/yyyy').format(picked);
       });
     }
   }
