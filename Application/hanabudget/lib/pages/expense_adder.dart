@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:hanabudget/data/expense_data.dart';
 import 'package:hanabudget/models/expense_item.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // FontAwesomeIcons package imported
 
 class AddExpense extends StatefulWidget {
   const AddExpense({Key? key}) : super(key: key);
@@ -44,7 +45,8 @@ class _AddExpenseState extends State<AddExpense> {
   void _saveExpense(BuildContext context) {
     final newExpense = ExpenseItem(
       name: expenseController.text,
-      amount: expenseController.text,
+      amount: expenseController
+          .text, // Ensure this is converted to a numeric type as needed
       dateTime: selectedDate,
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
@@ -55,7 +57,9 @@ class _AddExpenseState extends State<AddExpense> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Expense'),
+        title: const Text('Add Expense',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -64,15 +68,32 @@ class _AddExpenseState extends State<AddExpense> {
           children: [
             TextFormField(
               controller: expenseController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Expense Amount',
-                prefixIcon: Icon(Icons.attach_money),
+                prefixIcon: const Icon(
+                  FontAwesomeIcons.dollarSign,
+                  size: 20,
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
               ),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 20),
             DropdownButtonFormField<String>(
               value: selectedCategory,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+              ),
               hint: const Text('Select Category'),
               onChanged: (String? newValue) {
                 setState(() {
@@ -91,18 +112,29 @@ class _AddExpenseState extends State<AddExpense> {
               controller: dateController,
               decoration: InputDecoration(
                 labelText: 'Date',
-                prefixIcon: const Icon(Icons.calendar_today),
+                prefixIcon: const Icon(
+                  FontAwesomeIcons.calendarAlt, // FontAwesome icon for calendar
+                  size: 20, // Adjusted size for consistency
+                ),
                 suffixIcon: IconButton(
-                  icon: const Icon(Icons.date_range),
+                  icon: const Icon(
+                    FontAwesomeIcons
+                        .calendarDay, // FontAwesome icon for calendar picker
+                    size: 20,
+                  ),
                   onPressed: () => _selectDate(context),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
                 ),
               ),
               readOnly: true,
             ),
             const SizedBox(height: 30),
-            MyButtonSave(
-              onTap: () => _saveExpense(context),
-            ),
+            MyButtonSave(onTap: () => _saveExpense(context)),
           ],
         ),
       ),
