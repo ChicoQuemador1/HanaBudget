@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hanabudget/models/expense_item.dart';
 import 'package:hive/hive.dart';
 import 'package:hanabudget/components/expense_tile.dart';
 import 'package:hanabudget/data/expense_data.dart';
 import 'package:hanabudget/models/user.dart';
 import 'package:provider/provider.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
+  @override
+  State<MainPage> createState() => _MainPage();
+}
+
+class _MainPage extends State<MainPage> {
   Future<String> _getLoggedInUsername() async {
     var settingsBox = await Hive.openBox('settingsBox');
     return settingsBox.get('loggedInUser', defaultValue: '');
@@ -19,6 +25,19 @@ class MainPage extends StatelessWidget {
       return userBox.get(username);
     }
     return null;
+  }
+
+  String totalExpenses() {
+    double total = 0;
+    List<ExpenseItem> expenses =
+        Provider.of<ExpenseData>(context).overallExpenseList;
+
+    for (ExpenseItem expense in expenses) {
+      double amount = expense.amount as double;
+      total += amount;
+    }
+    String totalString = total.toString();
+    return totalString;
   }
 
   @override
@@ -109,7 +128,7 @@ class MainPage extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.w500)),
                   Text(
-                    '\$10,000.00',
+                    '\$' + totalExpenses(),
                     style: TextStyle(
                         fontSize: 40,
                         color: Colors.black,
