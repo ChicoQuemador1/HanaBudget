@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:hive/hive.dart';
 import 'package:hanabudget/screens/main_page.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -24,12 +25,11 @@ class HomePage extends StatelessWidget {
               Expanded(
                 child: Container(
                   color: Colors.white,
-                  // Content of the page goes here
+                  child: const MainScreen(), // Positioned on top of the Column
                 ),
               ),
             ],
           ),
-          const MainScreen(), // Positioned on top of the Column
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -60,7 +60,11 @@ class HomePage extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(Icons.exit_to_app),
-              onPressed: () {},
+              onPressed: () async {
+                var settingsBox = await Hive.openBox('settingsBox');
+                await settingsBox.delete('loggedInUser');
+                Navigator.pushReplacementNamed(context, '/login');
+              },
             ),
           ],
         ),
