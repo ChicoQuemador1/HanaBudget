@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hanabudget/data/expense_data.dart';
-import 'package:hanabudget/screens/graph_screen.dart';
+import 'package:hanabudget/pages/graph_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'screens/login_page.dart';
-import 'screens/sign_up_page.dart';
+import 'pages/login_page.dart';
+import 'pages/sign_up_page.dart';
 import 'models/user.dart';
-import 'screens/forgot_page.dart';
-import 'screens/home_page.dart';
+import 'pages/forgot_page.dart';
+import 'pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
