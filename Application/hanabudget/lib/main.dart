@@ -16,6 +16,7 @@ void main() async {
   Hive.registerAdapter(UserAdapter());
   await Hive.openBox<User>('userBox');
   await Hive.openBox('settingsBox');
+  await Hive.openBox('expense_database');
   runApp(MyApp());
 }
 

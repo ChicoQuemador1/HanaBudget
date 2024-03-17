@@ -36,7 +36,7 @@ class _MainPage extends State<MainPage> {
       double amount = double.parse(expense.amount);
       total += amount;
     }
-    String totalString = total.toString();
+    String totalString = total.toStringAsFixed(2);
     return totalString;
   }
 
