@@ -4,10 +4,11 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:hanabudget/components/expense_tile.dart';
 import 'package:hanabudget/data/expense_data.dart';
 import 'package:hanabudget/models/expense_item.dart';
+import 'package:hanabudget/pages/graph_page.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:hanabudget/models/user.dart';
-import 'package:hanabudget/screens/main_page.dart';
+import 'package:hanabudget/pages/main_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -62,6 +63,19 @@ class _HomePageState extends State<HomePage> {
     newExpenseAmountController.clear();
   }
 
+  int _page = 0;
+
+  Widget bodyFunction() {
+    switch (_page) {
+      case 0:
+        return const MainPage();
+      case 2:
+        return const GraphPage();
+      default:
+        return const MainPage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ExpenseData>(
@@ -83,6 +97,10 @@ class _HomePageState extends State<HomePage> {
                     IconButton(
                       icon: Icon(Icons.account_balance),
                       onPressed: () async {
+                        setState(() {
+                          _page = 0;
+                        });
+
                         var settingsBox = await Hive.openBox('settingsBox');
                         var loggedInUsername =
                             settingsBox.get('loggedInUser', defaultValue: '');
@@ -101,13 +119,21 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       icon: Icon(Icons.account_balance_wallet_outlined),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _page = 1;
+                        });
+                      },
                     ),
                     SizedBox(
                         width: 48), // Placeholder for floating action button
                     IconButton(
                       icon: Icon(Icons.bar_chart_outlined),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _page = 2;
+                        });
+                      },
                     ),
                     IconButton(
                       icon: Icon(Icons.exit_to_app),
@@ -120,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              body: MainPage(),
+              body: bodyFunction(),
             ));
     /*
         Stack(
