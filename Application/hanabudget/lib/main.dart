@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hanabudget/widgets/bottom_nav_bar.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'screens/login_page.dart';
 import 'screens/sign_up_page.dart';
 import 'models/user.dart';
 import 'screens/forgot_page.dart';
+import 'screens/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(),
       home: LoginPage(),
       routes: {
-        '/home': (context) => Bottom(),
+        '/home': (context) => HomePage(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
         '/forgot': (context) => ForgotPage(),
