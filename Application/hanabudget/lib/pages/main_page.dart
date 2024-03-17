@@ -33,7 +33,7 @@ class _MainPage extends State<MainPage> {
         Provider.of<ExpenseData>(context).overallExpenseList;
 
     for (ExpenseItem expense in expenses) {
-      double amount = expense.amount as double;
+      double amount = double.parse(expense.amount);
       total += amount;
     }
     String totalString = total.toString();
