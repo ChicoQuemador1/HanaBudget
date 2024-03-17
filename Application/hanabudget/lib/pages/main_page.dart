@@ -93,8 +93,38 @@ class MainPage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-              height: 300), // Added space between user info and expense list
+          SizedBox(height: 20),
+          Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.width / 3,
+              decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(30)),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Text('Total Expenses',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500)),
+                  Text(
+                    '\$10,000.00',
+                    style: TextStyle(
+                        fontSize: 40,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  )
+                ],
+              )),
+          SizedBox(height: 10),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Transactions',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontWeight: FontWeight.bold))
+          ]), // Added space between user info and expense list
           Expanded(
             child: Consumer<ExpenseData>(
               builder: (context, expenseData, child) => ListView.builder(

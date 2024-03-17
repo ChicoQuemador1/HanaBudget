@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:hanabudget/pages/budget_page.dart';
 import 'package:provider/provider.dart';
 import 'package:hanabudget/data/expense_data.dart';
 import 'package:hanabudget/models/expense_item.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add new expense'),
+        title: const Text('Add New Expense'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         currentPage = const MainPage();
         break;
       case 1:
-        currentPage = const Center(child: Text('Another Page'));
+        currentPage = const BudgetPage();
         break;
       case 2:
         currentPage = const GraphPage();
