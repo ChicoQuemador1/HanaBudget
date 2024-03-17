@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
   void save() {
     final newExpense = ExpenseItem(
       name: newExpenseNameController.text,
-      amount: double.parse(newExpenseAmountController.text),
+      amount: newExpenseAmountController.text,
       dateTime: DateTime.now(),
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
