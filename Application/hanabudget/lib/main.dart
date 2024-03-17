@@ -8,6 +8,7 @@ import 'pages/sign_up_page.dart';
 import 'models/user.dart';
 import 'pages/forgot_page.dart';
 import 'pages/home_page.dart';
+import 'pages/expense_adder.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/signup': (context) => SignUpPage(),
           '/forgot': (context) => ForgotPage(),
           '/graph': (context) => GraphPage(),
+          '/addExpense': (context) => AddExpense(), // Add this line
         },
       ),
     );
