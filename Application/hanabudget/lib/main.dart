@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hanabudget/data/expense_data.dart';
+import 'package:hanabudget/screens/graph_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'screens/login_page.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginPage(),
           '/signup': (context) => SignUpPage(),
           '/forgot': (context) => ForgotPage(),
+          '/graph': (context) => GraphPage(),
         },
       ),
     );
