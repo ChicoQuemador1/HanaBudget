@@ -46,7 +46,9 @@ class HomePage extends StatelessWidget {
           children: [
             IconButton(
               icon: Icon(Icons.account_balance),
-              onPressed: () {},
+              onPressed: () {
+                MainScreen();
+              },
             ),
             IconButton(
               icon: Icon(Icons.account_balance_wallet_outlined),
