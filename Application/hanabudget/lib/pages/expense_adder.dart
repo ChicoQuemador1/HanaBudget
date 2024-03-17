@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hanabudget/components/my_button_save.dart'; // Make sure the path matches where your MyButtonSave widget is located
+import 'package:hanabudget/components/my_button_save.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:hanabudget/data/expense_data.dart';
@@ -44,8 +44,7 @@ class _AddExpenseState extends State<AddExpense> {
   void _saveExpense(BuildContext context) {
     final newExpense = ExpenseItem(
       name: expenseController.text,
-      amount: expenseController
-          .text, // Ensure this is correctly formatted for your use case
+      amount: expenseController.text,
       dateTime: selectedDate,
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
