@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           '/signup': (context) => SignUpPage(),
           '/forgot': (context) => ForgotPage(),
           '/graph': (context) => GraphPage(),
-          '/addExpense': (context) => AddExpense(), // Add this line
+          '/addExpense': (context) => AddExpense(),
         },
       ),
     );
