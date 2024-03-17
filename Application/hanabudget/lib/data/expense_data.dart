@@ -1,7 +1,9 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:hanabudget/datetime/date_time_helper.dart';
 import 'package:hanabudget/models/expense_item.dart';
 
-class ExpenseData {
+class ExpenseData extends ChangeNotifier {
   // list all Expenses
   List<ExpenseItem> overallExpenseList = [];
   // Get Expense List
@@ -12,11 +14,13 @@ class ExpenseData {
   // Add New Expense
   void addNewExpense(ExpenseItem item) {
     overallExpenseList.add(item);
+    notifyListeners();
   }
 
   // Remove Expense
   void deleteExpense(ExpenseItem item) {
     overallExpenseList.remove(item);
+    notifyListeners();
   }
 
   // Get Weekday from dateTime obj
