@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -22,9 +21,9 @@ class MainScreen extends StatelessWidget {
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Colors.white),
                     ),
-                    Icon(
-                      CupertinoIcons.person_fill,
-                      color: Colors.grey[800],
+                    const Icon(
+                      Icons.person,
+                      size: 30,
                     )
                   ],
                 ),

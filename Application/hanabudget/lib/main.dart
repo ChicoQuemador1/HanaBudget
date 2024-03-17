@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hanabudget/widgets/bottomNavBar.dart';
+import 'package:hanabudget/widgets/bottom_nav_bar.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'screens/login_page.dart';
-import 'screens/home_page.dart';
 import 'screens/sign_up_page.dart';
 import 'models/user.dart';
 import 'screens/forgot_page.dart';
