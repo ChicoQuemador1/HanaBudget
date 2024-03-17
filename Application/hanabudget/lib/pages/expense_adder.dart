@@ -72,6 +72,7 @@ class _AddExpenseState extends State<AddExpense> {
                 decoration: const InputDecoration(
                     labelText: 'Expense Title',
                     prefixIcon: Icon(Icons.description))),
+            const SizedBox(height: 20),
             TextFormField(
               controller: expenseController,
               decoration: InputDecoration(
