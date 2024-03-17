@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hanabudget/data/expense_data.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'screens/login_page.dart';
 import 'screens/sign_up_page.dart';
 import 'models/user.dart';
@@ -26,16 +28,20 @@ void printSavedCredentials() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'HanaBudget',
-      theme: ThemeData(),
-      home: LoginPage(),
-      routes: {
-        '/home': (context) => HomePage(),
-        '/login': (context) => LoginPage(),
-        '/signup': (context) => SignUpPage(),
-        '/forgot': (context) => ForgotPage(),
-      },
+    return ChangeNotifierProvider(
+      create: (context) => ExpenseData(),
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'HanaBudget',
+        theme: ThemeData(),
+        home: LoginPage(),
+        routes: {
+          '/home': (context) => HomePage(),
+          '/login': (context) => LoginPage(),
+          '/signup': (context) => SignUpPage(),
+          '/forgot': (context) => ForgotPage(),
+        },
+      ),
     );
   }
 }
