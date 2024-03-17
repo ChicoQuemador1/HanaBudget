@@ -24,14 +24,46 @@ class HomePage extends StatelessWidget {
               Expanded(
                 child: Container(
                   color: Colors.white,
-                  // If you have content that should go under the clipped area, it goes here.
-                  // Otherwise, you can remove this part.
+                  // Content of the page goes here
                 ),
               ),
             ],
           ),
           const MainScreen(), // Positioned on top of the Column
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+        backgroundColor: Color(0xFF1ED891),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 6.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.account_balance),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.account_balance_wallet_outlined),
+              onPressed: () {},
+            ),
+            SizedBox(
+                width: 48), // The empty space for the floating action button
+            IconButton(
+              icon: Icon(Icons.bar_chart_outlined),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -19,10 +19,13 @@ class LoginPage extends StatelessWidget {
       return;
     }
 
-    var box = Hive.box<User>('userBox');
-    var user = box.get(usernameController.text);
+    var userBox = Hive.box<User>('userBox');
+    var user = userBox.get(usernameController.text);
 
     if (user != null && user.password == passwordController.text) {
+      var settingsBox = await Hive.openBox('settingsBox');
+      await settingsBox.put('loggedInUser',
+          user.username); // Save the username of the logged-in user
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
