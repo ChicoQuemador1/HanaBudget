@@ -38,14 +38,11 @@ class _ForgotPageState extends State<ForgotPage> {
       var settingsBox = await Hive.openBox('settingsBox');
       await settingsBox.put('loggedInUser', user.username);
 
-      // Fetch user's data after successful password update
       var updatedUser = box.get(user.username);
 
       if (updatedUser != null) {
-        // Force UI update to display correct first name
         setState(() {});
 
-        // Navigate to home page with the user's first name as a route argument
         Navigator.pushReplacementNamed(context, '/home',
             arguments: updatedUser.firstName);
       } else {
