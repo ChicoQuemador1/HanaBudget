@@ -48,6 +48,7 @@ class _AddExpenseState extends State<AddExpense> {
       name: titleController.text,
       amount: expenseController.text,
       dateTime: selectedDate,
+      category: selectedCategory ?? 'Other',
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
     Navigator.of(context).pop();

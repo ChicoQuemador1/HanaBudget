@@ -1,4 +1,4 @@
-import 'package:hanabudget/models/expense_item.dart';
+/*import 'package:hanabudget/models/expense_item.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveDataBase {
@@ -35,10 +35,12 @@ class HiveDataBase {
         name: name,
         amount: amount,
         dateTime: dateTime,
+        category:
+            "SomeCategory", // Add this line. Replace "SomeCategory" with the actual category.
       );
 
       allExpenses.add(expense);
     }
     return allExpenses;
   }
-}
+} */

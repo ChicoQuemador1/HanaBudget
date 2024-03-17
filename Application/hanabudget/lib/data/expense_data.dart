@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hanabudget/data/hive_database.dart';
 import 'package:hanabudget/datetime/date_time_helper.dart';
 import 'package:hanabudget/models/expense_item.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class ExpenseData extends ChangeNotifier {
   // list all Expenses
@@ -12,25 +10,16 @@ class ExpenseData extends ChangeNotifier {
     return overallExpenseList;
   }
 
-  final db = HiveDataBase();
-  void prepareData() {
-    if (db.readData().isNotEmpty) {
-      overallExpenseList = db.readData();
-    }
-  }
-
   // Add New Expense
   void addNewExpense(ExpenseItem item) {
     overallExpenseList.add(item);
     notifyListeners();
-    db.saveData(overallExpenseList);
   }
 
   // Remove Expense
   void deleteExpense(ExpenseItem item) {
     overallExpenseList.remove(item);
     notifyListeners();
-    db.saveData(overallExpenseList);
   }
 
   // Get Weekday from dateTime obj

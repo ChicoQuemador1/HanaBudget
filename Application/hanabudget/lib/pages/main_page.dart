@@ -154,6 +154,7 @@ class _MainPage extends State<MainPage> {
                     name: item.name,
                     amount: item.amount,
                     dateTime: item.dateTime,
+                    category: item.category,
                   );
                 },
               ),

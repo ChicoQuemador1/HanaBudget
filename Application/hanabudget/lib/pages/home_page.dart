@@ -20,13 +20,6 @@ class _HomePageState extends State<HomePage> {
   final newExpenseNameController = TextEditingController();
   final newExpenseAmountController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-
-    Provider.of<ExpenseData>(context, listen: false).prepareData();
-  }
-
   void addNewExpense() {
     showDialog(
       context: context,
@@ -58,6 +51,7 @@ class _HomePageState extends State<HomePage> {
       name: newExpenseNameController.text,
       amount: newExpenseAmountController.text,
       dateTime: DateTime.now(),
+      category: 'Other',
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
     Navigator.pop(context);
