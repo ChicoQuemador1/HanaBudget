@@ -92,8 +92,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Padding(
-          padding:
-              const EdgeInsets.only(top: 20), // Adjust top padding as needed
+          padding: const EdgeInsets.only(top: 20),
           child: currentPage,
         ),
       ],
@@ -129,12 +128,11 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.account_balance_wallet_outlined),
               onPressed: () => setState(() => _page = 1),
             ),
-            const SizedBox(width: 48), // Placeholder for floating action button
+            const SizedBox(width: 48),
             IconButton(
               icon: const Icon(Icons.bar_chart_outlined),
               onPressed: () => setState(() => _page = 2),
             ),
-
             IconButton(
               icon: const Icon(Icons.exit_to_app),
               onPressed: () async {
