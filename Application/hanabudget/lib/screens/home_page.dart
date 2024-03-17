@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hanabudget/components/expense_summary.dart';
 import 'package:hanabudget/components/expense_tile.dart';
 import 'package:hanabudget/data/expense_data.dart';
 import 'package:hanabudget/models/expense_item.dart';
+import 'package:hanabudget/screens/graph_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:hanabudget/screens/main_page.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -17,6 +19,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final newExpenseNameController = TextEditingController();
   final newExpenseAmountController = TextEditingController();
+
+  var widgetList = [
+    MainScreen(),
+    GraphPage(),
+  ];
+
+  int index = 0;
+
   void addNewExpense() {
     showDialog(
       context: context,
@@ -102,7 +112,9 @@ class _HomePageState extends State<HomePage> {
                   width: 48), // The empty space for the floating action button
               IconButton(
                 icon: Icon(Icons.bar_chart_outlined),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/graph');
+                },
               ),
               IconButton(
                 icon: Icon(Icons.exit_to_app),
@@ -115,14 +127,20 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body: ListView.builder(
-            itemCount: value.getAllExpenseList().length,
-            itemBuilder: (context, index) => ExpenseTile(
-                name: value.getAllExpenseList()[index].name,
-                amount: value.getAllExpenseList()[index].amount,
-                dateTime: value.getAllExpenseList()[index].dateTime)),
-
         /*
+        body: ListView(children: [
+          //ExpenseSummary(startOfWeek: value.startOfWeekDate()),
+          ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: value.getAllExpenseList().length,
+              itemBuilder: (context, index) => ExpenseTile(
+                  name: value.getAllExpenseList()[index].name,
+                  amount: value.getAllExpenseList()[index].amount,
+                  dateTime: value.getAllExpenseList()[index].dateTime)),
+        ]),
+        */
+
         body: Stack(
           children: [
             Column(
@@ -142,16 +160,10 @@ class _HomePageState extends State<HomePage> {
                         const MainScreen(), // Positioned on top of the Column
                   ),
                 ),
-                SizedBox(height: 20),
-                ListView.builder(
-                    itemCount: value.getAllExpenseList().length,
-                    itemBuilder: (context, index) => ListTile(
-                        title: Text(value.getAllExpenseList()[index].name)))
               ],
             ),
           ],
         ),
-        */
       ),
     );
   }
