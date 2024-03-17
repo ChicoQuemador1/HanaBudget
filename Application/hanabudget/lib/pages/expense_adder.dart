@@ -45,7 +45,7 @@ class _AddExpenseState extends State<AddExpense> {
   void _saveExpense(BuildContext context) {
     final newExpense = ExpenseItem(
       name: expenseController.text,
-      amount: expenseController.text, // Keeping amount as text
+      amount: expenseController.text,
       dateTime: selectedDate,
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
