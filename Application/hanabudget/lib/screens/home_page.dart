@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:hanabudget/screens/main_page.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:hanabudget/screens/main_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -12,23 +12,24 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Column(
-            children: [
-              ClipPath(
-                clipper: OvalBottomBorderClipper(),
-                child: Container(
-                  width: size.width,
-                  height: size.height * 0.20,
-                  color: Color(0xFF1ED891),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.white,
-                  child: const MainScreen(), // Positioned on top of the Column
-                ),
-              ),
-            ],
+          ClipPath(
+            clipper: OvalBottomBorderClipper(),
+            child: Container(
+              width: size.width,
+              height: size.height * 0.20,
+              color: Color(0xFF1ED891),
+              child:
+                  const MainScreen(), // Position MainScreen inside the ClipPath
+            ),
+          ),
+          Positioned(
+            top: size.height * 0.20, // Position right after the curved AppBar
+            child: Container(
+              width: size.width,
+              height: size.height * 0.80,
+              color: Colors.white,
+              // Content of the page goes here
+            ),
           ),
         ],
       ),
