@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:hanabudget/components/expense_summary.dart';
 import 'package:hanabudget/components/expense_tile.dart';
 import 'package:hanabudget/data/expense_data.dart';
 import 'package:hanabudget/models/expense_item.dart';
-import 'package:hanabudget/screens/graph_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:hanabudget/models/user.dart';
@@ -19,13 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final newExpenseNameController = TextEditingController();
   final newExpenseAmountController = TextEditingController();
-
-  var widgetList = [
-    MainScreen(),
-    GraphPage(),
-  ];
-
-  int index = 0;
 
   void addNewExpense() {
     showDialog(
@@ -165,9 +156,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(width: 48), // Placeholder for floating action button
               IconButton(
                 icon: Icon(Icons.bar_chart_outlined),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/graph');
-                },
+                onPressed: () {},
               ),
               IconButton(
                 icon: Icon(Icons.exit_to_app),
@@ -180,20 +169,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        /*
-        body: ListView(children: [
-          //ExpenseSummary(startOfWeek: value.startOfWeekDate()),
-          ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: value.getAllExpenseList().length,
-              itemBuilder: (context, index) => ExpenseTile(
-                  name: value.getAllExpenseList()[index].name,
-                  amount: value.getAllExpenseList()[index].amount,
-                  dateTime: value.getAllExpenseList()[index].dateTime)),
-        ]),
-        */
-
         body: Stack(
           children: [
             ClipPath(
@@ -213,14 +188,7 @@ class _HomePageState extends State<HomePage> {
                   amount: expenseData.getAllExpenseList()[index].amount,
                   dateTime: expenseData.getAllExpenseList()[index].dateTime,
                 ),
-                Expanded(
-                  child: Container(
-                    color: Colors.white,
-                    child:
-                        const MainScreen(), // Positioned on top of the Column
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),
