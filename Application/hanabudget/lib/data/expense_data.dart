@@ -44,7 +44,6 @@ class ExpenseData extends ChangeNotifier {
     }
   }
 
-  // Get date for start of week
   DateTime startOfWeekDate() {
     DateTime? startOfWeek;
     DateTime today = DateTime.now();

@@ -20,7 +20,13 @@ class _AddExpenseState extends State<AddExpense> {
   DateTime selectedDate = DateTime.now();
   String? selectedCategory;
 
-  final List<String> categories = ['Food', 'Transport', 'Utilities'];
+  final List<String> categories = [
+    'Food',
+    'Transport',
+    'Utilities',
+    'Entertainment',
+    'Health'
+  ];
 
   @override
   void initState() {
@@ -68,10 +74,23 @@ class _AddExpenseState extends State<AddExpense> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
-                controller: titleController,
-                decoration: const InputDecoration(
-                    labelText: 'Expense Title',
-                    prefixIcon: Icon(Icons.description))),
+              controller: titleController,
+              decoration: InputDecoration(
+                labelText: 'Expense Title',
+                prefixIcon: const Icon(
+                  FontAwesomeIcons.tag, // Use FontAwesome tag icon
+                  size: 20,
+                ),
+                filled: true, // Add fill to match other fields
+                fillColor: Colors.white, // Add fill color to match other fields
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                      30), // Add rounded corners to match other fields
+                  borderSide: BorderSide
+                      .none, // Remove the border to match other fields
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
             TextFormField(
               controller: expenseController,
