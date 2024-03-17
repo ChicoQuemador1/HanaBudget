@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hanabudget/components/my_button_save.dart';
+import 'package:hanabudget/data/hive_database.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:hanabudget/data/expense_data.dart';
@@ -13,6 +14,7 @@ class AddExpense extends StatefulWidget {
 }
 
 class _AddExpenseState extends State<AddExpense> {
+  TextEditingController titleController = TextEditingController();
   TextEditingController expenseController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -43,11 +45,12 @@ class _AddExpenseState extends State<AddExpense> {
 
   void _saveExpense(BuildContext context) {
     final newExpense = ExpenseItem(
-      name: expenseController.text,
+      name: titleController.text,
       amount: expenseController.text,
       dateTime: selectedDate,
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
+
     Navigator.of(context).pop();
   }
 
@@ -62,6 +65,11 @@ class _AddExpenseState extends State<AddExpense> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TextFormField(
+                controller: titleController,
+                decoration: const InputDecoration(
+                    labelText: 'Expense Title',
+                    prefixIcon: Icon(Icons.description))),
             TextFormField(
               controller: expenseController,
               decoration: const InputDecoration(
