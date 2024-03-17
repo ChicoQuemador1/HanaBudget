@@ -7,6 +7,7 @@ import 'package:hanabudget/models/expense_item.dart';
 import 'package:hanabudget/pages/main_page.dart';
 import 'package:hanabudget/pages/graph_page.dart';
 import 'package:hive/hive.dart';
+import 'package:hanabudget/pages/expense_adder.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -104,7 +105,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        onPressed: addNewExpense,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddExpense()),
+          );
+        },
         child: const Icon(Icons.add),
         backgroundColor: const Color(0xFF1ED891),
       ),
