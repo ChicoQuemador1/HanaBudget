@@ -45,8 +45,7 @@ class _AddExpenseState extends State<AddExpense> {
   void _saveExpense(BuildContext context) {
     final newExpense = ExpenseItem(
       name: expenseController.text,
-      amount: expenseController
-          .text, // Ensure this is converted to a numeric type as needed
+      amount: expenseController.text, // Keeping amount as text
       dateTime: selectedDate,
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
@@ -87,6 +86,10 @@ class _AddExpenseState extends State<AddExpense> {
             DropdownButtonFormField<String>(
               value: selectedCategory,
               decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  FontAwesomeIcons.list, // Always using list icon
+                  size: 20,
+                ),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -113,13 +116,12 @@ class _AddExpenseState extends State<AddExpense> {
               decoration: InputDecoration(
                 labelText: 'Date',
                 prefixIcon: const Icon(
-                  FontAwesomeIcons.calendarAlt, // FontAwesome icon for calendar
-                  size: 20, // Adjusted size for consistency
+                  FontAwesomeIcons.calendarAlt,
+                  size: 20,
                 ),
                 suffixIcon: IconButton(
                   icon: const Icon(
-                    FontAwesomeIcons
-                        .calendarDay, // FontAwesome icon for calendar picker
+                    FontAwesomeIcons.calendarDay,
                     size: 20,
                   ),
                   onPressed: () => _selectDate(context),
