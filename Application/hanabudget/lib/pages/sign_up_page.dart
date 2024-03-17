@@ -55,10 +55,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
     var savedUser = box.get(user.username);
     if (savedUser != null) {
-      // Force UI update to display correct first name
       setState(() {});
 
-      // Navigate to home page with the user's first name as a route argument
       Navigator.pushReplacementNamed(context, '/home',
           arguments: savedUser.firstName);
     } else {
