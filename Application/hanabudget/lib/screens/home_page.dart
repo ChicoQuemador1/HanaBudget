@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:hanabudget/components/expense_tile.dart';
 import 'package:hanabudget/data/expense_data.dart';
 import 'package:hanabudget/models/expense_item.dart';
 import 'package:hive/hive.dart';
-import 'package:hanabudget/screens/main_page.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:provider/provider.dart';
+import 'package:hanabudget/models/user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final newExpenseNameController = TextEditingController();
   final newExpenseAmountController = TextEditingController();
+
   void addNewExpense() {
     showDialog(
       context: context,
@@ -25,41 +26,31 @@ class _HomePageState extends State<HomePage> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Expense Name
             TextField(controller: newExpenseNameController),
-            // Expense Amount
-            TextField(
-              controller: newExpenseAmountController,
-            ),
+            TextField(controller: newExpenseAmountController),
           ],
         ),
         actions: [
-          // Save Button
           MaterialButton(
             onPressed: save,
             child: Text('Save'),
           ),
           MaterialButton(
-            onPressed: cancel,
+            onPressed: () => Navigator.pop(context),
             child: Text('Cancel'),
-          )
+          ),
         ],
       ),
     );
   }
 
   void save() {
-    ExpenseItem newExpense = ExpenseItem(
+    final newExpense = ExpenseItem(
       name: newExpenseNameController.text,
-      amount: newExpenseAmountController.text,
+      amount: double.parse(newExpenseAmountController.text),
       dateTime: DateTime.now(),
     );
     Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
-    Navigator.pop(context);
-    clear();
-  }
-
-  void cancel() {
     Navigator.pop(context);
     clear();
   }
@@ -69,12 +60,65 @@ class _HomePageState extends State<HomePage> {
     newExpenseAmountController.clear();
   }
 
+  Widget userMainScreen(String firstName) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.person,
+                      size: 30,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Welcome!",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                    Text(
+                      firstName,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
     return Consumer<ExpenseData>(
-      builder: (context, value, child) => Scaffold(
+      builder: (context, expenseData, child) => Scaffold(
         backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton(
           onPressed: addNewExpense,
@@ -90,16 +134,26 @@ class _HomePageState extends State<HomePage> {
             children: [
               IconButton(
                 icon: Icon(Icons.account_balance),
-                onPressed: () {
-                  MainScreen();
+                onPressed: () async {
+                  var settingsBox = await Hive.openBox('settingsBox');
+                  var loggedInUsername =
+                      settingsBox.get('loggedInUser', defaultValue: '');
+                  if (loggedInUsername != '') {
+                    var userBox = Hive.box<User>('userBox');
+                    var user = userBox.get(loggedInUsername);
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) => user != null
+                            ? userMainScreen(user.firstName)
+                            : userMainScreen('User'));
+                  }
                 },
               ),
               IconButton(
                 icon: Icon(Icons.account_balance_wallet_outlined),
                 onPressed: () {},
               ),
-              SizedBox(
-                  width: 48), // The empty space for the floating action button
+              SizedBox(width: 48), // Placeholder for floating action button
               IconButton(
                 icon: Icon(Icons.bar_chart_outlined),
                 onPressed: () {},
@@ -115,43 +169,29 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body: ListView.builder(
-            itemCount: value.getAllExpenseList().length,
-            itemBuilder: (context, index) => ExpenseTile(
-                name: value.getAllExpenseList()[index].name,
-                amount: value.getAllExpenseList()[index].amount,
-                dateTime: value.getAllExpenseList()[index].dateTime)),
-
-        /*
         body: Stack(
           children: [
-            Column(
-              children: [
-                ClipPath(
-                  clipper: OvalBottomBorderClipper(),
-                  child: Container(
-                    width: size.width,
-                    height: size.height * 0.20,
-                    color: Color(0xFF1ED891),
-                  ),
+            ClipPath(
+              clipper: OvalBottomBorderClipper(),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 200.0,
+                color: Color(0xFF1ED891),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 180.0),
+              child: ListView.builder(
+                itemCount: expenseData.getAllExpenseList().length,
+                itemBuilder: (context, index) => ExpenseTile(
+                  name: expenseData.getAllExpenseList()[index].name,
+                  amount: expenseData.getAllExpenseList()[index].amount,
+                  dateTime: expenseData.getAllExpenseList()[index].dateTime,
                 ),
-                Expanded(
-                  child: Container(
-                    color: Colors.white,
-                    child:
-                        const MainScreen(), // Positioned on top of the Column
-                  ),
-                ),
-                SizedBox(height: 20),
-                ListView.builder(
-                    itemCount: value.getAllExpenseList().length,
-                    itemBuilder: (context, index) => ListTile(
-                        title: Text(value.getAllExpenseList()[index].name)))
-              ],
+              ),
             ),
           ],
         ),
-        */
       ),
     );
   }
