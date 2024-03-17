@@ -23,10 +23,15 @@ class LoginPage extends StatelessWidget {
     var user = userBox.get(usernameController.text);
 
     if (user != null && user.password == passwordController.text) {
+      // Fetch user data after successful login
       var settingsBox = await Hive.openBox('settingsBox');
-      await settingsBox.put('loggedInUser',
-          user.username); // Save the username of the logged-in user
-      Navigator.pushReplacementNamed(context, '/home');
+      var userBox = Hive.box<User>('userBox');
+      var loggedInUser = userBox.get(usernameController.text);
+      await settingsBox.put('loggedInUser', loggedInUser!.username);
+
+      // Navigate to home page with the user's first name as a route argument
+      Navigator.pushReplacementNamed(context, '/home',
+          arguments: loggedInUser.firstName);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Incorrect username or password')),

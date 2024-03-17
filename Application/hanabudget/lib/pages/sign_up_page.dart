@@ -50,9 +50,17 @@ class _SignUpPageState extends State<SignUpPage> {
 
     await box.put(user.username, user);
 
+    var settingsBox = await Hive.openBox('settingsBox');
+    await settingsBox.put('loggedInUser', user.username);
+
     var savedUser = box.get(user.username);
     if (savedUser != null) {
-      Navigator.pushReplacementNamed(context, '/home');
+      // Force UI update to display correct first name
+      setState(() {});
+
+      // Navigate to home page with the user's first name as a route argument
+      Navigator.pushReplacementNamed(context, '/home',
+          arguments: savedUser.firstName);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to save user')),

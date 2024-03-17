@@ -5,7 +5,7 @@ import 'package:hanabudget/models/user.dart';
 import 'package:hive/hive.dart';
 
 class ForgotPage extends StatefulWidget {
-  ForgotPage({super.key});
+  ForgotPage({Key? key}) : super(key: key);
 
   @override
   _ForgotPageState createState() => _ForgotPageState();
@@ -32,9 +32,27 @@ class _ForgotPageState extends State<ForgotPage> {
     if (user != null &&
         user.securityQuestion == selectedSecurityQuestion &&
         user.securityAnswer == answerController.text) {
-      user.password = newPasswordController.text; // Update the password
-      await box.put(user.username, user); // Save the updated user
-      Navigator.pushReplacementNamed(context, '/home'); // Navigate to home
+      user.password = newPasswordController.text;
+      await box.put(user.username, user);
+
+      var settingsBox = await Hive.openBox('settingsBox');
+      await settingsBox.put('loggedInUser', user.username);
+
+      // Fetch user's data after successful password update
+      var updatedUser = box.get(user.username);
+
+      if (updatedUser != null) {
+        // Force UI update to display correct first name
+        setState(() {});
+
+        // Navigate to home page with the user's first name as a route argument
+        Navigator.pushReplacementNamed(context, '/home',
+            arguments: updatedUser.firstName);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to fetch user data')),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Incorrect username or security question')),

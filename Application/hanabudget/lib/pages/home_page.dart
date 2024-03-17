@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:hanabudget/components/expense_tile.dart';
+import 'package:provider/provider.dart';
 import 'package:hanabudget/data/expense_data.dart';
 import 'package:hanabudget/models/expense_item.dart';
+import 'package:hanabudget/pages/main_page.dart';
 import 'package:hanabudget/pages/graph_page.dart';
 import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
-import 'package:hanabudget/models/user.dart';
-import 'package:hanabudget/pages/main_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Add new expense'),
+        title: const Text('Add new expense'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -36,11 +33,11 @@ class _HomePageState extends State<HomePage> {
         actions: [
           MaterialButton(
             onPressed: save,
-            child: Text('Save'),
+            child: const Text('Save'),
           ),
           MaterialButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -66,113 +63,84 @@ class _HomePageState extends State<HomePage> {
   int _page = 0;
 
   Widget bodyFunction() {
+    Widget currentPage;
     switch (_page) {
       case 0:
-        return const MainPage();
+        currentPage = const MainPage();
+        break;
+      case 1:
+        currentPage = const Center(child: Text('Another Page'));
+        break;
       case 2:
-        return const GraphPage();
+        currentPage = const GraphPage();
+        break;
       default:
-        return const MainPage();
+        currentPage = const MainPage();
     }
+
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        ClipPath(
+          clipper: OvalBottomBorderClipper(),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 200.0,
+            color: const Color(0xFF1ED891),
+          ),
+        ),
+        Padding(
+          padding:
+              const EdgeInsets.only(top: 20), // Adjust top padding as needed
+          child: currentPage,
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ExpenseData>(
-        builder: (context, expenseData, child) => Scaffold(
-              backgroundColor: Colors.white,
-              floatingActionButton: FloatingActionButton(
-                onPressed: addNewExpense,
-                child: Icon(Icons.add),
-                backgroundColor: Color(0xFF1ED891),
-              ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              bottomNavigationBar: BottomAppBar(
-                shape: CircularNotchedRectangle(),
-                notchMargin: 6.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.account_balance),
-                      onPressed: () async {
-                        setState(() {
-                          _page = 0;
-                        });
-
-                        var settingsBox = await Hive.openBox('settingsBox');
-                        var loggedInUsername =
-                            settingsBox.get('loggedInUser', defaultValue: '');
-                        if (loggedInUsername != '') {
-                          var userBox = Hive.box<User>('userBox');
-                          var user = userBox.get(loggedInUsername);
-                          /*
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => user != null
-                                  ? userMainScreen(user.firstName)
-                                  : userMainScreen('User'));
-                                  */
-                        }
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.account_balance_wallet_outlined),
-                      onPressed: () {
-                        setState(() {
-                          _page = 1;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                        width: 48), // Placeholder for floating action button
-                    IconButton(
-                      icon: Icon(Icons.bar_chart_outlined),
-                      onPressed: () {
-                        setState(() {
-                          _page = 2;
-                        });
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.exit_to_app),
-                      onPressed: () async {
-                        var settingsBox = await Hive.openBox('settingsBox');
-                        await settingsBox.delete('loggedInUser');
-                        Navigator.pushReplacementNamed(context, '/login');
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              body: bodyFunction(),
-            ));
-    /*
-        Stack(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: addNewExpense,
+        child: const Icon(Icons.add),
+        backgroundColor: const Color(0xFF1ED891),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 6.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ClipPath(
-              clipper: OvalBottomBorderClipper(),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 200.0,
-                color: Color(0xFF1ED891),
-              ),
+            IconButton(
+              icon: const Icon(Icons.account_balance),
+              onPressed: () => setState(() => _page = 0),
             ),
-            
-            Padding(
-              padding: const EdgeInsets.only(top: 180.0),
-              child: ListView.builder(
-                itemCount: expenseData.getAllExpenseList().length,
-                itemBuilder: (context, index) => ExpenseTile(
-                  name: expenseData.getAllExpenseList()[index].name,
-                  amount: expenseData.getAllExpenseList()[index].amount,
-                  dateTime: expenseData.getAllExpenseList()[index].dateTime,
-                ),
-              ),
+            IconButton(
+              icon: const Icon(Icons.account_balance_wallet_outlined),
+              onPressed: () => setState(() => _page = 1),
             ),
-            
+            const SizedBox(width: 48), // Placeholder for floating action button
+            IconButton(
+              icon: const Icon(Icons.bar_chart_outlined),
+              onPressed: () => setState(() => _page = 2),
+            ),
+
+            IconButton(
+              icon: const Icon(Icons.exit_to_app),
+              onPressed: () async {
+                var settingsBox = await Hive.openBox('settingsBox');
+                await settingsBox
+                    .delete('loggedInUser'); // Clear loggedInUser key
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+            )
           ],
-        ),*/
+        ),
+      ),
+      body: bodyFunction(),
+    );
   }
 }
