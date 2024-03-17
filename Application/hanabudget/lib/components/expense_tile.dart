@@ -14,6 +14,7 @@ class ExpenseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: Icon(Icons.fastfood),
       title: Text(name),
       subtitle: Text('${dateTime.day}/${dateTime.month}/${dateTime.year}'),
       trailing: Text('\$' + amount),
