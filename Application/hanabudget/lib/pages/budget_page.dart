@@ -94,7 +94,7 @@ class _BudgetPage extends State<BudgetPage> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   )),
-              Text("\$${specificTotal("Food")} / \$${budgetLimit("Food")}\t",
+              Text("\$${specificTotal("Food")} / \$100\t",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -115,8 +115,7 @@ class _BudgetPage extends State<BudgetPage> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   )),
-              Text(
-                  "\$${specificTotal("Transportation")} / \$${budgetLimit("Transportation")}\t",
+              Text("\$${specificTotal("Transportation")} / \$100\t",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -137,8 +136,7 @@ class _BudgetPage extends State<BudgetPage> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   )),
-              Text(
-                  "\$${specificTotal("Utilities")} / \$${budgetLimit("Utilities")}\t",
+              Text("\$${specificTotal("Utilities")} / \$100\t",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -159,8 +157,7 @@ class _BudgetPage extends State<BudgetPage> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   )),
-              Text(
-                  "\$${specificTotal("Entertainment")} / \$${budgetLimit("Entertainment")}\t",
+              Text("\$${specificTotal("Entertainment")} / \$100\t",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -181,8 +178,7 @@ class _BudgetPage extends State<BudgetPage> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   )),
-              Text(
-                  "\$${specificTotal("Health")} / \$${budgetLimit("Health")}\t",
+              Text("\$${specificTotal("Health")} / \$100\t",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
