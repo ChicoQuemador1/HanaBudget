@@ -104,8 +104,7 @@ class _BudgetPage extends State<BudgetPage> {
             LinearProgressIndicator(
               backgroundColor: Colors.grey[300],
               color: Colors.red,
-              value: progress(
-                  "Food"), // Change this value to expense over total budget
+              value: progress("Food"),
             ),
             const SizedBox(height: 30),
             // Transportation
@@ -125,8 +124,7 @@ class _BudgetPage extends State<BudgetPage> {
             LinearProgressIndicator(
               backgroundColor: Colors.grey[300],
               color: Colors.red,
-              value: progress(
-                  "Transportation"), // Change this value to expense over total budget
+              value: progress("Transportation"),
             ),
             const SizedBox(height: 30),
             // Utilities
@@ -146,8 +144,7 @@ class _BudgetPage extends State<BudgetPage> {
             LinearProgressIndicator(
               backgroundColor: Colors.grey[300],
               color: Colors.red,
-              value: progress(
-                  "Utilities"), // Change this value to expense over total budget
+              value: progress("Utilities"),
             ),
             const SizedBox(height: 30),
             // Entertainment
@@ -167,8 +164,7 @@ class _BudgetPage extends State<BudgetPage> {
             LinearProgressIndicator(
               backgroundColor: Colors.grey[300],
               color: Colors.red,
-              value: progress(
-                  "Entertainment"), // Change this value to expense over total budget
+              value: progress("Entertainment"),
             ),
             const SizedBox(height: 30),
             //Health
@@ -188,8 +184,7 @@ class _BudgetPage extends State<BudgetPage> {
             LinearProgressIndicator(
               backgroundColor: Colors.grey[300],
               color: Colors.red,
-              value: progress(
-                  "Health"), // Change this value to expense over total budget
+              value: progress("Health"),
             ),
             const SizedBox(height: 30),
           ],
