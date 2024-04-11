@@ -8,7 +8,7 @@ The friendly and simple expense tracker app! Built with Flutter & Atlas MongoDB 
 
 ***
 
-## 🌟 We are AMplify, founded by Alexis and Mark
+## 🌟 We are Amplify, founded by Alexis and Mark
 
 - [Alexis Cruz-Aboytes](https://github.com/ChicoQuemador1)
 - [Mark Denina](https://github.com/mdenina1)
